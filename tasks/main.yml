@@ -1,0 +1,20 @@
+---
+# tasks file for ansible-role-vim
+
+- name: Run the equivalent of "pacman -Sy" before installing vim
+  pacman:
+    update_cache: yes
+  become: yes
+  when: ansible_os_family == 'Archlinux'
+
+- name: Install vim with pacman
+  pacman:
+    name: vim
+    state: present
+  become: yes
+  when: ansible_os_family == 'Archlinux'
+
+- name: Install vim plugins with Vundle
+  # Must use the "--not-a-term" flag or vim will print
+  # "warning: Output is not to a terminal".
+  shell: vim +PluginInstall +qall --not-a-term > /dev/null
