@@ -1,2 +1,6 @@
 ---
 # defaults file for ansible-role-vim
+
+
+vim_user: "{{ ansible_user_id }}"
+vim_group: users

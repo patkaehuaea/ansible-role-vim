@@ -14,6 +14,15 @@
   become: yes
   when: ansible_os_family == 'Archlinux'
 
+- name: Copy .vimrc to {{ vim_config }}
+  copy:
+    src: .vimrc
+    dest: "{{ vim_config }}"
+    owner: "{{ vim_user }}"
+    group: "{{ vim_group }}"
+    mode: '0640'
+    backup: yes
+
 - name: Install vim plugins with Vundle
   # Must use the "--not-a-term" flag or vim will print
   # "warning: Output is not to a terminal".
